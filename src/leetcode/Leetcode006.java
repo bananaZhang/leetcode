@@ -1,6 +1,8 @@
+package leetcode;
+
 /**
  * @author ZJY
- * @ClassName: Leetcode006
+ * @ClassName: leetcode.Leetcode006
  * @Description: Z 字形变换
  * @date 2019/1/29 20:14
  */
