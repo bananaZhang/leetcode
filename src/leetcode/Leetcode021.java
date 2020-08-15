@@ -31,19 +31,11 @@ public class Leetcode021 {
                 tail = node;
             }
         }
-        while (l1 != null) {
-            int v1 = l1.val;
-            ListNode node = new ListNode(v1);
-            l1 = l1.next;
-            tail.next = node;
-            tail = node;
+        if (l1 != null) {
+            tail.next = l1;
         }
-        while (l2 != null) {
-            int v2 = l2.val;
-            ListNode node = new ListNode(v2);
-            l2 = l2.next;
-            tail.next = node;
-            tail = node;
+        if (l2 != null) {
+            tail.next = l2;
         }
         return root.next;
     }
