@@ -1,6 +1,6 @@
 package leetcode.common;
 
-public class LianbianUtil {
+public class LianbiaoUtil {
     public static ListNode buildLianbian() {
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);

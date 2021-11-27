@@ -1,6 +1,6 @@
 package leetcode;
 
-import leetcode.common.LianbianUtil;
+import leetcode.common.LianbiaoUtil;
 import leetcode.common.ListNode;
 
 /**
@@ -22,9 +22,9 @@ public class Leetcode206 {
     }
 
     public static void main(String[] args) {
-        ListNode head = LianbianUtil.buildLianbian();
-        LianbianUtil.soutLianbiao(head);
+        ListNode head = LianbiaoUtil.buildLianbian();
+        LianbiaoUtil.soutLianbiao(head);
 
-        LianbianUtil.soutLianbiao(new Leetcode206().reverseList(head));
+        LianbiaoUtil.soutLianbiao(new Leetcode206().reverseList(head));
     }
 }
