@@ -22,7 +22,7 @@ public class Leetcode206 {
     }
 
     public static void main(String[] args) {
-        ListNode head = LianbiaoUtil.buildLianbian();
+        ListNode head = LianbiaoUtil.buildLiaobian();
         LianbiaoUtil.soutLianbiao(head);
 
         LianbiaoUtil.soutLianbiao(new Leetcode206().reverseList(head));
