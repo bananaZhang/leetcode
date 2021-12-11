@@ -8,36 +8,36 @@ import leetcode.common.ListNode;
  * @date: 2020/8/15 5:56 下午
  */
 public class Leetcode021 {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if (l1 == null) {
-            return l2;
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
         }
-        if (l2 == null) {
-            return l1;
+        if (list2 == null) {
+            return list1;
         }
         ListNode root = new ListNode(0);
         ListNode tail = root;
-        while (l1 != null && l2 != null) {
-            int v1 = l1.val;
-            int v2 = l2.val;
+        while (list1 != null && list2 != null) {
+            int v1 = list1.val;
+            int v2 = list2.val;
             if (v1 >= v2) {
                 ListNode node = new ListNode(v2);
-                l2 = l2.next;
+                list2 = list2.next;
                 tail.next = node;
                 tail = node;
             }
             if (v1 <= v2) {
                 ListNode node = new ListNode(v1);
-                l1 = l1.next;
+                list1 = list1.next;
                 tail.next = node;
                 tail = node;
             }
         }
-        if (l1 != null) {
-            tail.next = l1;
+        if (list1 != null) {
+            tail.next = list1;
         }
-        if (l2 != null) {
-            tail.next = l2;
+        if (list2 != null) {
+            tail.next = list2;
         }
         return root.next;
     }
