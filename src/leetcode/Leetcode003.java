@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,33 +13,49 @@ import java.util.Set;
  */
 public class Leetcode003 {
 
+    /**
+     * O(nlogn)解法
+     */
     public int lengthOfLongestSubstring(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
-        int length = 1;
         Set<Character> set = new HashSet<>();
-        char[] arr = s.toCharArray();
-        for (int i = 0; i < arr.length; i++) {
-            set.add(arr[i]);
-            int len = 1;
-            for (int j = i + 1; j < arr.length; j++) {
-                if (set.contains(arr[j])) {
-                    set.clear();
+        int length = 0;
+        for (int left = 0; left < s.length(); left++) {
+            for (int right = left; right < s.length(); right++) {
+                if (set.contains(s.charAt(right))) {
                     break;
                 } else {
-                    set.add(arr[j]);
-                    len++;
+                    set.add(s.charAt(right));
                 }
             }
-            length = Math.max(len, length);
+            length = Math.max(set.size(), length);
+            set.clear();
         }
         return length;
     }
 
-    // 可使用滑动窗口解法，时间复杂度O(n)
+    /**
+     * 滑动窗口解法, O(n)
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        List<Character> list = new ArrayList<>();
+        int right = 0;
+        int length = 0;
+        while (right < s.length()) {
+            // 滑动窗口
+            if (list.contains(s.charAt(right))) {
+                length = Math.max(list.size(), length);
+                list.remove(0);
+            // 扩大right
+            } else {
+                list.add(s.charAt(right));
+                right ++;
+            }
+        }
+        length = Math.max(list.size(), length);
+        return length;
+    }
 
     public static void main(String[] args) {
-        System.out.println(new Leetcode003().lengthOfLongestSubstring("au"));
+        System.out.println(new Leetcode003().lengthOfLongestSubstring2(""));
     }
 }
