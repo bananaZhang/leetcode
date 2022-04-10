@@ -2,50 +2,39 @@ package leetcode;
 
 /**
  * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
- * 动态规划
  * @author: ZJY
- * @date: 2019/6/6 下午1:56
+ * @date: 2022/4/10 10:04 下午
  */
 public class Leetcode005 {
 
+    private int maxLen = 1;
+    private int start = 0;
+    private int end = 0;
+
     public String longestPalindrome(String s) {
-        if (s == null || s.trim().length() == 0) {
-            return "";
-        }
-        if (s.length() == 1) {
-            return s;
-        }
-        String result = "";
         char[] charArr = s.toCharArray();
-        // 回文字串的左边界和右边界
-        int left = 0, right = 0;
-        for (int i = 0; i < charArr.length; i++) {
-            for (int j = i; j < charArr.length; j++) {
-                // 边界内就不需要再判断了
-                if (i >= left && j <= right) {
-                    continue;
-                }
-                // 如果比已经求出的回文串长，则更新
-                if (isPalindrome(i, j, charArr) && ((j-i+1) > result.length())) {
-                    result = s.substring(i, j+1);
-                    left = i;
-                    right = j;
-                }
-            }
+        for (int i = 0; i < s.length(); i++) {
+            // 以i为中心
+            isPalindrome(charArr, i, i, s.length());
+            // 以i和i+1为中心
+            isPalindrome(charArr, i, i+1, s.length());
         }
-        return result;
+        return s.substring(start, end + 1);
     }
 
-    private boolean isPalindrome(int i, int j, char[] chars) {
-        if (i == j) {
-            return true;
-        }
-        while (j >= i) {
-            if (chars[i++] != chars[j--]) {
-                return false;
+    private void isPalindrome(char[] charArr, int i, int j, int n) {
+        // 双指针判断
+        while (i >= 0 && j < n && charArr[i] == charArr[j]) {
+            int length = j - i + 1;
+            // 只有超过最大回文的长度才记录
+            if (length > maxLen) {
+                maxLen = length;
+                start = i;
+                end = j;
             }
+            i--;
+            j++;
         }
-        return true;
     }
 
     public static void main(String[] args) {
