@@ -1,6 +1,22 @@
 package leetcode.common;
 
 public class LianbiaoUtil {
+    public static ListNode buildLiaobian(Integer... values) {
+        ListNode pre = null;
+        ListNode head = null;
+        for (int i = 0; i < values.length; i ++) {
+            ListNode node = new ListNode(values[i], null);
+            if (pre != null) {
+                pre.next = node;
+            }
+            if (pre == null) {
+                head = node;
+            }
+            pre = node;
+        }
+        return head;
+    }
+
     public static ListNode buildLiaobian() {
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
