@@ -22,6 +22,7 @@ public class Leetcode142 {
             }
             fast = fast.next.next;
         }
+        // 相遇后将其中一个指针移到head，然后以相同速度前进，相遇点则是环的交点
         fast = head;
         while (slow != fast) {
             slow = slow.next;
