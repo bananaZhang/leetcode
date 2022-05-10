@@ -23,6 +23,7 @@ public class Leetcode004 {
                 i++;
             }
         }
+        // 没有填充满nums数组的情况
         if (nums[nums.length - 1] == 0) {
             if (i == nums1.length) {
                 while (i+j < nums.length) {
