@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * 所有元音按顺序排布的最长子字符串
  * 滑动窗口
@@ -31,5 +34,6 @@ public class Leetcode1839 {
 
     public static void main(String[] args) {
         System.out.println(new Leetcode1839().longestBeautifulSubstring("aeeeiiiioooauuuaeiou"));
+        Stream.of(1, 2, 5, 8).mapToInt(Integer::intValue).max();
     }
 }
