@@ -10,25 +10,21 @@ import leetcode.common.ListNode;
  */
 public class Leetcode019 {
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode last = head;
-        // 链表中节点的数量
-        int count = 0;
-        while (last != null) {
-            count ++;
-            last = last.next;
+        // 快慢指针，快指针先走n步，再同时走，快指针到队尾时，慢指针的下个节点就是倒数第n个节点
+        ListNode fast = head;
+        ListNode slow = head;
+        while (n > 0) {
+            fast = fast.next;
+            n--;
         }
-        ListNode cur = head;
-        ListNode pre = null;
-        for (int i = 1; i <= count - n; i++) {
-            pre = cur;
-            cur = cur.next;
+        if (fast == null) {
+            return head.next;
         }
-        // 表明删除头节点
-        if (pre == null) {
-            head = head.next;
-        } else {
-            pre.next = cur.next;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
+        slow.next = slow.next.next;
         return head;
     }
 
