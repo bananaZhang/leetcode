@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * 最小覆盖子串
+ * 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
  * 滑动窗口
  * @author: ZJY
  * @date: 2022/5/1 10:12 下午
@@ -16,8 +17,6 @@ public class Leetcode076 {
         }
         // 需要的字符数
         Map<Character, Integer> needMap = new HashMap<>();
-        // 窗口中包含的字符数
-        Map<Character, Integer> countMap = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
             Integer num = needMap.getOrDefault(t.charAt(i), 0);
             needMap.put(t.charAt(i), ++num);
@@ -27,6 +26,8 @@ public class Leetcode076 {
         int r = 0;
         String result = "";
         int winSize = Integer.MAX_VALUE;
+        // 窗口中包含的字符数
+        Map<Character, Integer> countMap = new HashMap<>();
         while (r < s.length()) {
             Character c = s.charAt(r);
             if (needMap.containsKey(c)) {
