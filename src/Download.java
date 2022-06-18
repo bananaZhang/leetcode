@@ -28,9 +28,9 @@ public class Download {
                     dirStack.offer(file);
                 } else {
                     String avFullName = file.getName();
+                    avFullName = avFullName.toLowerCase();
                     if (avFullName.endsWith("mp4") || avFullName.endsWith("rmvb")
-                            || avFullName.endsWith("avi") || avFullName.endsWith("wmv")) {
-                        avFullName = avFullName.toLowerCase();
+                            || avFullName.endsWith("avi") || avFullName.endsWith("wmv") || avFullName.endsWith("mkv")) {
                         String reg = "[a-z]+-[0-9]+";
                         Pattern pattern = Pattern.compile(reg);
                         Matcher matcher = pattern.matcher(avFullName);
