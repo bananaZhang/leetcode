@@ -14,19 +14,24 @@ public class Leetcode114 {
         Stack<TreeNode> stack = new Stack<>();
         while (root != null || !stack.isEmpty()) {
             while (root != null) {
-                stack.add(root.left);
+                stack.add(root);
                 root = root.left;
             }
             if (!stack.isEmpty()) {
                 TreeNode node = stack.pop();
-                TreeNode rightNode = node.right;
+                TreeNode tmp = node.right;
+                // 右节点设置为左节点的值
                 node.right = node.left;
+                // 左节点设置为null
                 node.left = null;
+                // 左节点已经是链表了，找到链表尾部
                 while (node.right != null) {
                     node = node.right;
                 }
-                node.right = rightNode;
-                root = rightNode;
+                // 原来的右节点放到尾部
+                node.right = tmp;
+                // 右节点下面可能也要转换成链表，所以需要把右节点也放入栈中处理
+                root = tmp;
             }
         }
     }
