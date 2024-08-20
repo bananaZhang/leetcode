@@ -3,8 +3,9 @@ package leetcode;
 import java.util.Stack;
 
 /**
- * 柱状图中的最大矩形https://blog.csdn.net/Zolewit/article/details/88863970
- * 单调栈
+ * 柱状图中的最大矩形https://blog.csdn.net/Zolewit/article/details/88863970 单调栈
+ * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+ * 求在该柱状图中，能够勾勒出来的矩形的最大面积。
  * @author: ZJY
  * @date: 2022/6/4 5:45 下午
  */

@@ -4,8 +4,8 @@ package leetcode;
 import java.util.Stack;
 
 /**
- * 最大矩形
- * 这一题可以抽象成84题
+ * 最大矩形 这一题可以抽象成84题
+ * 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
  * @author: ZJY
  * @date: 2022/6/4 10:40 下午
  */

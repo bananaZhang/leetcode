@@ -1,7 +1,7 @@
 package leetcode;
 
 /**
- * 接雨水
+ * 接雨水 双指针
  * 字节题
  * @author: ZJY
  * @date: 2022/2/26 6:08 下午
