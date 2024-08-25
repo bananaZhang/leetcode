@@ -2,6 +2,8 @@ package leetcode;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * 滑动窗口最大值 单调队列
@@ -33,6 +35,28 @@ public class Leetcode239 {
             }
         }
         return res;
+    }
+
+    /**
+     * 解法2: 使用优先级队列
+     * */
+    public int[] maxSlidingWindow2(int[] nums, int k) {
+        Queue<int[]> queue = new PriorityQueue<>((o1, o2) -> o2[0] - o1[0]);
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < k; i++) {
+            max = Math.max(max, nums[i]);
+            queue.add(new int[]{nums[i], i});
+        }
+        int[] maxArr = new int[nums.length-k+1];
+        maxArr[0] = max;
+        for (int left = 1, right = k; right < nums.length; left++, right++) {
+            queue.add(new int[]{nums[right], right});
+            while (queue.peek()[1] <= right - k) {
+                queue.poll();
+            }
+            maxArr[left] = queue.peek()[0];
+        }
+        return maxArr;
     }
 
     public static void main(String[] args) {
