@@ -11,6 +11,7 @@ import java.util.Queue;
  * 对称二叉树：给你一个二叉树的根节点 root ， 检查它是否轴对称。
  * */
 public class Leetcode101 {
+    // 还可以用递归
     public boolean isSymmetric(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
