@@ -1,38 +1,98 @@
 package leetcode;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * LRU 算法
  * 字节题
+ *
  * @author: ZJY
  * @date: 2022/3/13 7:16 下午
  */
 public class Leetcode146 {
-    private LinkedHashMap<Integer, Integer> linkedHashMap;
+    private final int capacity;
+
+    private int size;
+
+    private LruNode head;
+
+    private LruNode tail;
+
+    private final Map<Integer, LruNode> cache = new ConcurrentHashMap<>();
 
     public Leetcode146(int capacity) {
-        /**
-         * 按照访问顺序排序，并且当size大于capacity时，淘汰掉最老的数据
-         */
-        linkedHashMap = new LinkedHashMap<Integer, Integer>(capacity, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry eldest) {
-                return size() > capacity;
-            }
-        };
+        this.capacity = capacity;
+        this.size = 0;
+        head = new LruNode();
+        tail = new LruNode();
+        head.next = tail;
+        tail.prev = head;
     }
 
     public int get(int key) {
-        if (!linkedHashMap.containsKey(key)) {
+        LruNode node = cache.get(key);
+        if (node == null) {
             return -1;
         }
-        return linkedHashMap.get(key);
+        moveToHead(node);
+        return node.value;
     }
 
     public void put(int key, int value) {
-        linkedHashMap.put(key, value);
+        LruNode node = cache.get(key);
+        if (node != null) {
+            node.value = value;
+            moveToHead(node);
+            return;
+        }
+        node = new LruNode(key, value);
+        cache.put(key, node);
+        addNode(node);
+        size++;
+        if (size > capacity) {
+            deleteTail();
+        }
+    }
+
+    private void addNode(LruNode node) {
+        LruNode next = head.next;
+        head.next = node;
+        node.prev = head;
+        node.next = next;
+        next.prev = node;
+    }
+
+    private void moveToHead(LruNode node) {
+        LruNode prev = node.prev;
+        LruNode next = node.next;
+        prev.next = next;
+        next.prev = prev;
+        addNode(node);
+    }
+
+    private void deleteTail() {
+        LruNode deleteNode = tail.prev;
+        cache.remove(deleteNode.key);
+        LruNode prev = deleteNode.prev;
+        tail.prev = prev;
+        prev.next = tail;
+        size--;
+    }
+
+    private class LruNode {
+        int key;
+        int value;
+        LruNode prev;
+        LruNode next;
+
+        public LruNode() {
+        }
+
+        public LruNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 
     public static void main(String[] args) {
