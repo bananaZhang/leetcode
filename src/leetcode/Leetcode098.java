@@ -11,27 +11,20 @@ import java.util.List;
  * @date: 2022/6/5 1:10 下午
  */
 public class Leetcode098 {
-    List<Integer> list = new ArrayList<>();
-
     public boolean isValidBST(TreeNode root) {
-        traverse(root);
-        boolean result = true;
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i) <= list.get(i-1)) {
-                return false;
-            }
-        }
-        return result;
+        return judge(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    public void traverse(TreeNode root) {
-        if (root.left != null) {
-            traverse(root.left);
+    // lower：节点值的下界
+    // upper：节点值的上界
+    public boolean judge(TreeNode node, long lower, long upper) {
+        if (node == null) {
+            return true;
         }
-        list.add(root.val);
-        if (root.right != null) {
-            traverse(root.right);
+        if (node.val <= lower || node.val >= upper) {
+            return false;
         }
+        return judge(node.left, lower, node.val) && judge(node.right, node.val, upper);
     }
 
     public static void main(String[] args) {
