@@ -2,6 +2,30 @@ package leetcode.common;
 
 public class TreeUtil {
 
+    public static TreeNode buildBinaryTree(Integer... nums) {
+        TreeNode[] nodes = new TreeNode[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            nodes[i] = nums[i] == null ? null : new TreeNode(nums[i]);
+        }
+        for (int i = nodes.length-1; i >= 0; i--) {
+            if (nodes[i] == null) {
+                continue;
+            }
+            if (i % 2 == 0) {
+                int rootIdx = (i-2) / 2;
+                if (rootIdx >= 0 && nodes[rootIdx] != null) {
+                    TreeNode root = nodes[rootIdx];
+                    root.right = nodes[i];
+                }
+            } else {
+                int rootIdx = (i-1) / 2;
+                TreeNode root = nodes[rootIdx];
+                root.left = nodes[i];
+            }
+        }
+        return nodes[0];
+    }
+
     /**
      *              1
      *             / \
