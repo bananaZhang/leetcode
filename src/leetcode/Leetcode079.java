@@ -8,74 +8,35 @@ package leetcode;
  * @date: 2022/1/9 7:33 下午
  */
 public class Leetcode079 {
-    private boolean[][] used;
+    private boolean result;
 
     public boolean exist(char[][] board, String word) {
-        used = new boolean[board.length][board[0].length];
-        char c =  word.charAt(0);
+        int[][] visited = new int[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (c == board[i][j]) {
-                    used[i][j] = true;
-                    if (find(i, j, board, word, 1)) {
-                        return true;
-                    }
-                    used[i][j] = false;
-                }
+                find(board, i, j, 0, word, visited);
             }
         }
-        return false;
+        return result;
     }
 
-    private boolean find(int row, int col, char[][] board, String word, int index) {
-        if (index == word.length()) {
-            return true;
+    private void find(char[][] board, int x, int y, int index, String word, int[][] visited) {
+        if (x < 0 || y < 0 || x >= board.length || y >= board[0].length || visited[x][y] == 1 || result) {
+            return;
         }
         char target = word.charAt(index);
-        // 上
-        if (row > 0) {
-            char c = board[row - 1][col];
-            if (c == target && !used[row - 1][col]) {
-                used[row - 1][col] = true;
-                if (find(row - 1, col, board, word, index + 1)) {
-                    return true;
-                };
-                used[row - 1][col] = false;
-            }
+        if (board[x][y] != target) {
+            return;
         }
-        // 下
-        if (row < board.length - 1) {
-            char c = board[row + 1][col];
-            if (c == target && !used[row + 1][col]) {
-                used[row + 1][col] = true;
-                if (find(row + 1, col, board, word, index + 1)) {
-                    return true;
-                }
-                used[row + 1][col] = false;
-            }
+        if (index == word.length() - 1) {
+            result = true;
+            return;
         }
-        // 左
-        if (col > 0) {
-            char c = board[row][col - 1];
-            if (c == target && !used[row][col - 1]) {
-                used[row][col - 1] = true;
-                if (find(row, col - 1, board, word, index + 1)) {
-                    return true;
-                }
-                used[row][col - 1] = false;
-            }
-        }
-        // 右
-        if (col < board[0].length - 1) {
-            char c = board[row][col + 1];
-            if (c == target && !used[row][col + 1]) {
-                used[row][col + 1] = true;
-                if (find(row, col + 1, board, word, index + 1)) {
-                    return true;
-                }
-                used[row][col + 1] = false;
-            }
-        }
-        return false;
+        visited[x][y] = 1;
+        find(board, x+1, y, index+1, word, visited);
+        find(board, x-1, y, index+1, word, visited);
+        find(board, x, y+1, index+1, word, visited);
+        find(board, x, y-1, index+1, word, visited);
+        visited[x][y] = 0;
     }
 }

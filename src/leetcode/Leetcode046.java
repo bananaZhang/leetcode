@@ -13,22 +13,25 @@ public class Leetcode046 {
     private List<List<Integer>> resultList = new ArrayList<>();
 
     public List<List<Integer>> permute(int[] nums) {
-        backtrack(nums, 0, new ArrayList<>(nums.length));
+        int[] visited = new int[nums.length];
+        backtrack(nums, visited, new ArrayList<>(nums.length));
         return resultList;
     }
 
-    private void backtrack(int[] nums, int index, List<Integer> result) {
-        if (index == nums.length) {
+    private void backtrack(int[] nums, int[] visited, List<Integer> result) {
+        if (result.size() == nums.length) {
             resultList.add(new ArrayList<>(result));
             return;
         }
-        for (int num : nums) {
-            if (result.contains(num)) {
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i] == 1) {
                 continue;
             }
-            result.add(num);
-            backtrack(nums, index + 1, result);
+            result.add(nums[i]);
+            visited[i] = 1;
+            backtrack(nums, visited, result);
             result.remove(result.size() - 1);
+            visited[i] = 0;
         }
     }
 
