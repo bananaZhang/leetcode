@@ -11,19 +11,28 @@ import java.util.List;
  * 给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 小的元素（从 1 开始计数）。
  */
 public class Leetcode230 {
+    private int result = -1;
+    private int k;
+
     public int kthSmallest(TreeNode root, int k) {
-        List<Integer> list = new ArrayList<>();
-        traverse(list, root, k);
-        return list.get(k-1);
+        this.k = k;
+        traverse(root);
+        return result;
     }
 
-    private void traverse(List<Integer> list, TreeNode root, int k) {
-        if (root.left != null) {
-            traverse(list, root.left, k);
+    // 中序遍历k次就可以得到结果
+    private void traverse(TreeNode node) {
+        if (k == 0) {
+            return;
         }
-        list.add(root.val);
-        if (root.right != null) {
-            traverse(list, root.right, k);
+        if (node.left != null) {
+            traverse(node.left);
+        }
+        if (--k == 0) {
+            result = node.val;
+        }
+        if (node.right != null) {
+            traverse(node.right);
         }
     }
 

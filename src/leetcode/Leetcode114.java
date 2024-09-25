@@ -35,4 +35,16 @@ public class Leetcode114 {
             }
         }
     }
+
+    // 第二种：递归法
+    private TreeNode pre = null;
+    public void flatten2(TreeNode root) {
+        if (root == null)
+            return;
+        flatten2(root.right);
+        flatten2(root.left);
+        root.right = pre;
+        root.left = null;
+        pre = root;
+    }
 }

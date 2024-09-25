@@ -29,6 +29,33 @@ public class Leetcode084 {
         return max;
     }
 
+    // 自己写的，用了两个单调栈
+    public int largestRectangleArea2(int[] heights) {
+        Stack<Integer> stk1 = new Stack<>();
+        int[] rightMax = new int[heights.length];
+        for (int i = heights.length - 1; i >= 0; i--) {
+            while (!stk1.isEmpty() && heights[i] >= heights[stk1.peek()]) {
+                stk1.pop();
+            }
+            rightMax[i] = stk1.isEmpty() ? i : stk1.peek() - i;
+            stk1.push(i);
+        }
+        Stack<Integer> stk2 = new Stack<>();
+        int[] leftMin = new int[heights.length];
+        for (int i = 0; i < heights.length; i++) {
+            while (!stk2.isEmpty() && heights[i] <= heights[stk2.peek()]) {
+                stk2.pop();
+            }
+            leftMin[i] = stk2.isEmpty() ? i : i - stk2.peek();
+            stk2.push(i);
+        }
+        int maxArea = 0;
+        for (int i = 0; i < heights.length; i++) {
+            maxArea = Math.max(maxArea, (rightMax[i] - leftMin[i]) * heights[i]);
+        }
+        return maxArea;
+    }
+
     public static void main(String[] args) {
         int[] heights = new int[]{5,4,1,2};
         System.out.println(new Leetcode084().largestRectangleArea(heights));
