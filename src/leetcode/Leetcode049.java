@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 字母异位词分组
@@ -10,23 +11,12 @@ import java.util.*;
  */
 public class Leetcode049 {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<Integer>> map = new HashMap<>();
-        for (int i = 0; i < strs.length; i++) {
-            char[] charArr = strs[i].toCharArray();
-            Arrays.sort(charArr);
-            String newStr = new String(charArr);
-            List<Integer> list = map.getOrDefault(newStr, new ArrayList<>());
-            list.add(i);
-            map.put(newStr, list);
-        }
-        List<List<String>> resList = new ArrayList<>();
-        for (List<Integer> value : map.values()) {
-            List<String> list = new ArrayList<>();
-            for (Integer index : value) {
-                list.add(strs[index]);
-            }
-            resList.add(list);
-        }
-        return resList;
+        Map<String, List<String>> map = Arrays.stream(strs).collect(Collectors.groupingBy((str) -> {
+                    char[] arr = str.toCharArray();
+                    Arrays.sort(arr);
+                    return new String(arr);
+                }
+        ));
+        return new ArrayList<>(map.values());
     }
 }
