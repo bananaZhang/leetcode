@@ -14,45 +14,24 @@ import java.util.Set;
 public class Leetcode003 {
 
     /**
-     * O(nlogn)解法
-     */
-    public int lengthOfLongestSubstring(String s) {
-        Set<Character> set = new HashSet<>();
-        int length = 0;
-        for (int left = 0; left < s.length(); left++) {
-            for (int right = left; right < s.length(); right++) {
-                if (set.contains(s.charAt(right))) {
-                    break;
-                } else {
-                    set.add(s.charAt(right));
-                }
-            }
-            length = Math.max(set.size(), length);
-            set.clear();
-        }
-        return length;
-    }
-
-    /**
      * 滑动窗口解法, O(n)
      */
     public int lengthOfLongestSubstring2(String s) {
+        int l = 0;
+        int r = 0;
+        int maxLen = 0;
         List<Character> list = new ArrayList<>();
-        int right = 0;
-        int length = 0;
-        while (right < s.length()) {
-            // 滑动窗口
-            if (list.contains(s.charAt(right))) {
-                length = Math.max(list.size(), length);
+        while (r < s.length()) {
+            char c = s.charAt(r);
+            while (list.contains(c)) {
                 list.remove(0);
-            // 扩大right
-            } else {
-                list.add(s.charAt(right));
-                right ++;
+                l++;
             }
+            list.add(c);
+            maxLen = Math.max(maxLen, list.size());
+            r++;
         }
-        length = Math.max(list.size(), length);
-        return length;
+        return maxLen;
     }
 
     public static void main(String[] args) {
