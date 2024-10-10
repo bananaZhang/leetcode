@@ -15,32 +15,31 @@ public class Leetcode074 {
         return searchColumn(matrix, row, target);
     }
 
-    private int searchRow(int[][] matrix, int target) {
-        int low = 0;
-        int high = matrix.length - 1;
-        while (low < high) {
-            // 向上取整的情况，high=len-1也可以取到high值
-            int mid = low + (high - low + 1) / 2;
+    public int searchRow(int[][] matrix, int target) {
+        int left = 0;
+        int right = matrix.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
             if (matrix[mid][0] <= target) {
-                low = mid;
+                left = mid + 1;
             } else {
-                high = mid - 1;
+                right = mid - 1;
             }
         }
-        return low;
+        return left == 0 ? left : left - 1;
     }
 
-    private boolean searchColumn(int[][] matrix, int row, int target) {
-        int low = 0;
-        int high = matrix[0].length;
-        while (low < high) {
-            int mid = low + (high - low) / 2;
-            if (matrix[row][mid] == target) {
-                return true;
-            } else if (matrix[row][mid] < target) {
-                low = mid + 1;
+    public boolean searchColumn(int[][] matrix, int row, int target) {
+        int left = 0;
+        int right = matrix[row].length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (matrix[row][mid] < target) {
+                left = mid + 1;
+            } else if (matrix[row][mid] > target) {
+                right = mid - 1;
             } else {
-                high = mid;
+                return true;
             }
         }
         return false;
