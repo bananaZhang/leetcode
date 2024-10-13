@@ -12,7 +12,7 @@ public class Leetcode148 {
             return head;
         }
         ListNode slow = head;
-        ListNode fast = head.next;
+        ListNode fast = head.next; // 这里要初始化为head.next，否则会死循环
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
